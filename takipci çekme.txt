@@ -1,0 +1,132 @@
+from selenium import webdriver
+from bs4 import BeautifulSoup as bea
+import time
+import html5lib
+
+
+
+browser=webdriver.Firefox()
+browser.get("https://www.instagram.com")
+
+time.sleep(1.5)
+
+girisyap=browser.find_element_by_xpath("/html/body/span/section/main/article/div[2]/div[2]/p/a")
+girisyap.click()
+time.sleep(1)
+username=browser.find_element_by_name("username")
+password=browser.find_element_by_name("password")
+
+username.send_keys("KULLANICIADINIZIGİRİN")
+time.sleep(1)
+
+password.send_keys("ŞİFREYİGİRİN")
+time.sleep(2)
+
+ac=browser.find_element_by_xpath("/html/body/span/section/main/div/article/div/div[1]/div/form/div[4]/button")
+
+ac.click()
+time.sleep(5)
+
+browser.get("İZLENECEKHESABINİURLSİNİGİRİN")
+time.sleep(1.5)
+
+
+
+cntrl=1
+
+while True:
+    browser.refresh()
+    time.sleep(3)
+    takipcii=browser.find_element_by_xpath("/html/body/span/section/main/div/header/section/ul/li[2]/a")
+    
+    takipcii.click()
+
+    time.sleep(3)
+    
+    icerik=browser.page_source
+    
+
+
+    s=bea(icerik,"html5lib")
+    a=""
+    b=""
+    ataglar=s.body.find_all("a",attrs={"class":"FPmhX notranslate _0imsa"})
+    ss=bea(str(ataglar),"html5lib")
+    veri=ss.get_text()
+
+
+    while cntrl==1:
+        
+        for i in range(len(veri)):
+            if i == 0 or i == (len(veri)-1):
+                continue
+            elif veri[i] == ",":
+                print("",end="")
+            else:
+                a+=veri[i]
+        cntrl=2
+        
+
+        list1=a.split()
+
+    time.sleep(10)
+
+
+    
+
+
+
+    
+    for j in range(len(veri)):
+        if j == 0 or j == (len(veri)-1):
+            continue
+        elif veri[j] == ",":
+            print("",end="")
+        else:
+            b+=veri[j]
+
+    list2=b.split()
+
+    if not list1[-1] in list2:
+        list2.append(list1[-1])
+    
+    takipeden=[x for x in list2 if x not in list1]
+    
+
+    cikanlar=[y for y in list1 if y not in list2]
+
+    
+
+    tkpelsay=0
+    cknelsay=0
+    
+    if len(takipeden) > tkpelsay:
+        print("Takip etmeye başlayan:   ",end="")
+        print(takipeden[0])
+        
+        
+            
+        
+        
+    elif len(cikanlar) > cknelsay:
+        print("Takibi bırakan:   ",end="")
+        print(cikanlar[0])
+        
+        
+    else:
+        print("")
+ 
+        
+        
+                   
+    
+    
+    
+    
+    
+    list1=list2
+
+    
+    
+
+input()
